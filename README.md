@@ -1,25 +1,49 @@
 # loadlog
+
 Log system-wide CPU temp and load, fan speed and memory usage. Uses Python 3 to record how running a particular program
 affects CPU temperature and load, fan speed, and overall memory usage. Any program that can be launched from the
 command line can be profiled by this script.
 
-Tested on OS X 10.9.5, Python 3.4
+## Test info
 
-###Requirements
+Tested on OS X 10.9.5, Python 3.4 by KK
+
+### Update
+
+Tested on MacPro (Late 2013) by HY
+
+- OS version: maxOS High Sierra (10.13.6)
+- Python version: 3.7.5
+- Ruby version: 2.3.7p456 (2018-03-28 revision 63024) [universal.x86_64-darwin17]
+- iStats version: v1.6.1 installed via Gem (version 2.5.2.3)
+- psutil version: 5.6.7 installed via pip (version 19.3.1)
+
+## Requirements
+
 - istats : Ruby gem  
   Command-line program that outputs overall CPU temperature and fan speed  
   Install using command `gem install iStats`  
-  URL: https://github.com/Chris911/iStats
+  URL: <https://github.com/Chris911/iStats>
+
+`gem install iStats` may not work simply and you may get an error message like,
+
+```[bash]
+ERROR:  While executing gem ... (Gem::FilePermissionError)
+    You don't have write permissions for the /Library/Ruby/Gems/2.3.0 directory.
+```
+
+In such case, use `sudo gem install -n <dir under PATH> iStats`. It will install iStats under the specified directory.
 
 - psutil : Python 3 module  
   Install using `pip3 install psutil`  
-  URL: https://pythonhosted.org/psutil/
+  URL: <https://pythonhosted.org/psutil/>
 
-###Usage
+## Usage
+
 `loadlog.py <"command"> [options]`
 
+## How it works
 
-###How it works
 This script records system stats before the target program is launched, while the target is running, and
 after a certain period of time after the program has finished.
 
