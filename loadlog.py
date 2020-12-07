@@ -47,7 +47,7 @@ __version__ = 0.1
 import subprocess as proc
 import re
 import datetime
-import psutil
+import psutil # Need to install
 import time
 import argparse
 
@@ -61,16 +61,16 @@ class stats(object):
         self.total_memory = psutil.virtual_memory().total
 
     def now(self):
-        cmd_lst = ['istats']
+        cmd_lst = ['istats'] # Need to install
         self.datetime = datetime.datetime.now()
         istats_stdout = proc.check_output(cmd_lst).decode('utf-8')
         self.cpu_temp = []
         self.fan_speed = []
         for line in istats_stdout.split('\n'):
             if line.startswith('CPU'):
-                self.cpu_temp.append(float(re.search('\d+\.\d+', line).group(0)))
+                self.cpu_temp.append(float(re.search('\d+\.*\d*', line.split(':')[1]).group(0)))
             if line.startswith('Fan'):
-                self.fan_speed.append(float(re.search('\d+\.\d+', line).group(0)))
+                self.fan_speed.append(float(re.search('\d+\.*\d*', line.split(':')[1]).group(0)))
         self.percpu_percent = psutil.cpu_percent(interval=0.1, percpu=True)
         self.cpu_percent = psutil.cpu_percent(interval=0.1, percpu=False)
         self._memory = psutil.virtual_memory()
